@@ -16,6 +16,8 @@ Thumbs.db
 /node_modules/
 /dist/
 /build/
+/assets/build/
+.phpcs.cache
 /coverage/
 /playwright-report/
 /test-results/
