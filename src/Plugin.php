@@ -1,8 +1,6 @@
 <?php
 /**
- * Plugin identity constants.
- *
- * Phase 0 only: no hooks, no side effects. Bootstrap wiring arrives in Phase 1.
+ * Plugin identity and bootstrap.
  *
  * @package MailBridge\Migrator
  */
@@ -11,8 +9,10 @@ declare(strict_types=1);
 
 namespace MailBridge\Migrator;
 
+use MailBridge\Migrator\Admin\SettingsPage;
+
 /**
- * Static plugin identity. Kept free of WordPress calls so it is unit-testable.
+ * Plugin bootstrap and identity.
  */
 final class Plugin {
 
@@ -20,6 +20,13 @@ final class Plugin {
 	public const TEXT_DOMAIN = 'mailbridge-migrator';
 	public const MIN_PHP     = '8.1';
 	public const MIN_WP      = '6.4';
+
+	/**
+	 * Register WordPress integration points.
+	 */
+	public static function boot(): void {
+		add_action( 'admin_menu', array( SettingsPage::class, 'register' ) );
+	}
 
 	/**
 	 * Whether a PHP version string satisfies the minimum supported version.
