@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "chore/**", "feature/**", "fix/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detect Composer manifest
+        id: composer
+        run: |
+          if [ -f composer.json ]; then echo "present=true" >> "$GITHUB_OUTPUT"; else echo "present=false" >> "$GITHUB_OUTPUT"; fi
+      - uses: shivammathur/setup-php@v2
+        if: steps.composer.outputs.present == 'true'
+        with:
+          php-version: '8.2'
+          coverage: none
+      - name: Install PHP dependencies
+        if: steps.composer.outputs.present == 'true'
+        run: composer install --no-interaction --prefer-dist
+      - name: Run PHPCS if configured
+        if: steps.composer.outputs.present == 'true'
+        run: |
+          if composer run --list 2>/dev/null | grep -q phpcs; then composer run phpcs; else echo "PHPCS script not configured yet; skipping."; fi
+      - name: Run tests if configured
+        if: steps.composer.outputs.present == 'true'
+        run: |
+          if composer run --list 2>/dev/null | grep -q test; then composer run test; elif [ -x vendor/bin/phpunit ]; then vendor/bin/phpunit; else echo "Test command not configured yet; skipping."; fi
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detect npm manifest
+        id: npm
+        run: |
+          if [ -f package.json ]; then echo "present=true" >> "$GITHUB_OUTPUT"; else echo "present=false" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/setup-node@v4
+        if: steps.npm.outputs.present == 'true'
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install frontend dependencies
+        if: steps.npm.outputs.present == 'true'
+        run: npm ci
+      - name: Lint if configured
+        if: steps.npm.outputs.present == 'true'
+        run: npm run lint --if-present
+      - name: Typecheck if configured
+        if: steps.npm.outputs.present == 'true'
+        run: npm run typecheck --if-present
+      - name: Build if configured
+        if: steps.npm.outputs.present == 'true'
+        run: npm run build --if-present

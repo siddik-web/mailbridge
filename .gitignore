@@ -1,0 +1,27 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.log
+*.sql
+*.dump
+*.mbox
+*.eml
+*.csv
+.DS_Store
+Thumbs.db
+
+# Dependencies and build outputs
+/vendor/
+/node_modules/
+/dist/
+/build/
+/coverage/
+/playwright-report/
+/test-results/
+
+# Editor and local tooling
+.idea/
+.vscode/
+.phpunit.cache/
+.phpstan/
