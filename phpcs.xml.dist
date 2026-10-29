@@ -26,17 +26,7 @@
 		</properties>
 	</rule>
 
-	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
-		<properties>
-			<property name="prefixes" type="array">
-				<element value="MailBridge\Migrator"/>
-				<element value="mailbridge_migrator"/>
-				<element value="MAILBRIDGE_MIGRATOR"/>
-			</property>
-		</properties>
-	</rule>
-
-	<!-- PSR-4 class files are named after the class, not class-*.php. -->
+	<!-- Namespaced PSR-4 classes and tests intentionally use class-name filenames. -->
 	<rule ref="WordPress.Files.FileName">
 		<properties>
 			<property name="strict_class_file_names" value="false"/>
@@ -45,7 +35,7 @@
 		<exclude-pattern>tests/*</exclude-pattern>
 	</rule>
 
-	<!-- Tests do not render output; assertion messages are not escaped. -->
+	<!-- Tests do not render output; assertion messages are not output. -->
 	<rule ref="WordPress.Security.EscapeOutput">
 		<exclude-pattern>tests/*</exclude-pattern>
 	</rule>
