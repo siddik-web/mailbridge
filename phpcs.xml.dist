@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<ruleset name="MailBridge Migrator">
+	<description>WordPress Coding Standards for MailBridge Migrator.</description>
+
+	<file>mailbridge-migrator.php</file>
+	<file>src</file>
+	<file>tests</file>
+
+	<arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg value="sp"/>
+	<arg name="cache" value=".phpcs.cache"/>
+
+	<config name="testVersion" value="8.1-"/>
+	<config name="minimum_wp_version" value="6.4"/>
+
+	<rule ref="WordPress-Extra"/>
+	<rule ref="WordPress-Docs"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="mailbridge-migrator"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="MailBridge\Migrator"/>
+				<element value="mailbridge_migrator"/>
+				<element value="MAILBRIDGE_MIGRATOR"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- PSR-4 class files are named after the class, not class-*.php. -->
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="strict_class_file_names" value="false"/>
+		</properties>
+		<exclude-pattern>src/*</exclude-pattern>
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+
+	<!-- Tests do not render output; assertion messages are not escaped. -->
+	<rule ref="WordPress.Security.EscapeOutput">
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+</ruleset>

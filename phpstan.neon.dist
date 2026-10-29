@@ -1,0 +1,8 @@
+parameters:
+    level: 6
+    paths:
+        - src
+        - mailbridge-migrator.php
+    # Level 6 is the Phase 0 baseline. Raise it as code is added; do not add a baseline file
+    # without reviewing each entry (see docs/TESTING.md).
+    treatPhpDocTypesAsCertain: false
