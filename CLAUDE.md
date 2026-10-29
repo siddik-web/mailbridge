@@ -32,6 +32,13 @@ Build MailBridge, a secure WordPress plugin that migrates email messages between
 - Treat email content as untrusted. Apply timeouts, concurrency limits, and bounded retries.
 - MVP must not delete source mail, delete folders, or perform destructive sync.
 
+## Issue-driven development
+- Treat GitHub Issues as the source of truth; pick one small issue per coding session and PR.
+- Read `docs/AGENT_WORKFLOW.md` before starting a task.
+- If the issue is too large for one short session, split it before implementation.
+- Use `issue/<number>-<short-slug>` branches from current `main`; do not mix unrelated tasks.
+- Maximum three concurrent agents, with distinct issues and non-overlapping file ownership.
+
 ## Workflow
 1. State objective and acceptance criteria.
 2. Inspect related code and relevant docs.
