@@ -5,6 +5,7 @@ Build MailBridge, a secure WordPress plugin that migrates email messages between
 
 ## Mandatory rules
 - Read `AGENTS.md` and relevant `docs/` files before implementation.
+- Use the exact setup and check commands in `docs/DEVELOPMENT.md`; do not invent scripts.
 - Inspect the repository and toolchain before changing files; plan non-trivial changes.
 - Implement only the current milestone and keep changes small.
 - Never claim tests passed unless actually run; report exact commands and results.
